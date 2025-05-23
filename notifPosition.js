@@ -1,8 +1,6 @@
 (function() {
   'use strict';
 
-  // Ligne fixe pour le Google Sheet
-  const ligne = "16";
 
   // Liste des titres correspondants aux colonnes
   const titles = [
