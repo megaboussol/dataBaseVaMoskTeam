@@ -1,7 +1,9 @@
+// notifPosition.js
+'use strict';
+
+window.ligne = "16"; // ← Rendu global
 
 (function() {
-  'use strict';
-  const ligne = "16";
   const titles = [
     "home", "account", "newcaptcha", "visatype", "appointmentcaptcha",
     "newappointment", "slotselection", "appselection", "applicantselection", "other"
@@ -26,7 +28,7 @@
 
   const index = titles.indexOf(part.toLowerCase());
   const colonne = String.fromCharCode(66 + index);
-  const cellule = colonne + ligne;
+  const cellule = colonne + window.ligne;
 
   console.log("Page :", part);
   console.log("Cellule :", cellule);
@@ -45,7 +47,7 @@
     for (let c = startChar; c <= endChar; c++) {
       const col = String.fromCharCode(c);
       if (col !== activeCol) {
-        const cell = col + ligne;
+        const cell = col + window.ligne;
         write(cell, "-");
       }
     }
