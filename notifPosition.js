@@ -1,14 +1,11 @@
-(function() {
+function notifPosition(ligne) {
   'use strict';
 
-
-  // Liste des titres correspondants aux colonnes
   const titles = [
     "home", "account", "newcaptcha", "visatype", "appointmentcaptcha",
     "newappointment", "slotselection", "appselection", "applicantselection", "other"
   ];
 
-  // Récupérer la partie pertinente de l'URL pour déterminer la colonne
   let part = window.location.href.split('/')[4] || "";
 
   if (part.toLowerCase() === "appointment") {
@@ -26,15 +23,13 @@
     }
   }
 
-  // Trouver l'index de la colonne
   const index = titles.indexOf(part.toLowerCase());
-  const colonne = String.fromCharCode(66 + index); // B = 66 en ASCII
+  const colonne = String.fromCharCode(66 + index);
   const cellule = colonne + ligne;
 
   console.log("Page détectée :", part);
   console.log("Cellule cible :", cellule);
 
-  // Fonction pour écrire dans la feuille Google via Google Apps Script Web App
   function write(cel, val) {
     const url = `https://script.google.com/macros/s/AKfycbwanne3dMvFx8x8cIFt7b2kRMLTWFNPwjaRWDHKBxP4S1YoFce3UCHOJOZrQa58I3QwUQ/exec?cellule=${encodeURIComponent(cel)}&valeur=${encodeURIComponent(val)}`;
     fetch(url)
@@ -43,7 +38,6 @@
       .catch(error => console.error("❌ Erreur d'écriture :", error));
   }
 
-  // Réinitialiser les autres cellules pour éviter conflits
   function resetOtherCells(activeCol) {
     const startChar = 'B'.charCodeAt(0);
     const endChar = 'K'.charCodeAt(0);
@@ -56,7 +50,6 @@
     }
   }
 
-  // Détecter le message d'état dans le texte de la page
   let valeur = "IN";
   const text = document.body.innerText;
 
@@ -84,10 +77,6 @@
     valeur = "TooMany";
   }
 
-  // Écrire la valeur détectée dans la bonne cellule
   write(cellule, valeur);
-
-  // Réinitialiser les autres cellules
   resetOtherCells(colonne);
-
-})();
+}
