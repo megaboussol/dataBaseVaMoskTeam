@@ -1,6 +1,7 @@
+
 (function() {
   'use strict';
-
+  const ligne = "16";
   const titles = [
     "home", "account", "newcaptcha", "visatype", "appointmentcaptcha",
     "newappointment", "slotselection", "appselection", "applicantselection", "other"
